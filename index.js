@@ -26,6 +26,7 @@ app.use(methodOverride('_method'));
 seedDB();
 
 app.use("/", userRoutes);
+app.use("/users", userRoutes);
 
 app.listen(3000, function () {
     console.log("The Server Has Started!");
