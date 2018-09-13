@@ -56,7 +56,16 @@ router.get("/new", function (req, res) {
 
 // EDIT - shows edit form for a user
 router.get("/:id/edit", function (req, res) {
-    res.render("users/edit", { user: req.user });
+    User.findById(req.params.id).exec(function(err, foundUser){
+        if(err || !foundUser){
+            console.log(err);
+            req.flash('error', 'Desculpe mas este usuário não existe!');
+            return res.redirect('/users');
+        }
+        console.log(foundUser);
+        res.render("users/edit", { user: foundUser });
+    })
+    
 });
 
 // PUT - updates user in the database
@@ -67,7 +76,7 @@ router.put("/:id", function (req, res) {
             req.flash("error", err.message);
             res.redirect("back");
         } else {
-            req.flash("success", "Successfully Updated!");
+            req.flash("success", "Atualizado com sucesso!");
             res.redirect("/users/" + user._id);
         }
     });
@@ -80,7 +89,7 @@ router.delete("/:id", function (req, res) {
             req.flash('error', err.message);
             return res.redirect('/');
         }
-        req.flash('error', 'User deleted!');
+        req.flash('error', 'Usuário deletado!');
         res.redirect('/users');
     });
 });
