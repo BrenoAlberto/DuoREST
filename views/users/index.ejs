@@ -1,31 +1,43 @@
-<% include ../partials/header %> 
+<% include ../partials/header %>
 
-     <header class="jumbotron">
-         <div class="container">
-             <h1><span class="fa fa-user"></span> Todos os usuários</h1>
-             <p>
+    <header class="jumbotron">
+        <div class="container">
+            <h1>
+                <span class="fa fa-users"></span> Todos os usuários</h1>
+            <p>
                 <a class="btn btn-primary btn-lg" href="/users/new">Adicionar um novo usuário</a>
-             </p>
-              <p>
-              <form action="/users" method="GET" class="form-inline" id="user-search">
-                <div class="form-group">
-                  <input type="text" name="search" placeholder="Procurar usuário..." class="form-control">
-                </div>
-              </form>
-             </p>
-         </div>
-     </header>
-     
-     <div class="row text-center flex-wrap" id="user-grid">
+            </p>
+            <p>
+                <form action="/users" method="GET" class="form-inline" id="user-search">
+                    <div class="form-group">
+                        <input type="text" name="search" placeholder="Procurar usuário..." class="form-control">
+                    </div>
+                </form>
+            </p>
+        </div>
+    </header>
+
+    <div class="row text-center flex-wrap" id="user-grid">
         <% users.forEach(function(user){ %>
             <div class="col-md-3 col-sm-6">
-                <div class="container">
-                    <h4><%= user.name %></h4>
+                <div class="card">
+                    <h3><%= user.name %></h3>
+                    <hr>
                     <h4><%= user.email %></h4>
+                    <hr>
                     <h4><%= user.cpf %></h4>
+                    <hr>
+                    <div class="row text-center">
+                        <div class="col-md-6 col-sm-6">
+                            <a class="btn btn-warning" href="/users/<%= user._id %>/edit">Editar</a>
+                        </div>
+                        <form action="/users/<%= user._id %>?_method=DELETE" method="POST" class="delete-form col-md-6 col-sm-6">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        <% }); %>
+            <% }); %>
     </div>
 
-<% include ../partials/footer %>
+    <% include ../partials/footer %>
