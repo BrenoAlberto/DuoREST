@@ -1,6 +1,6 @@
-var express = require("express"),
-    router = express.Router(),
-    User = require("../models/user");
+var express = require("express");
+var router = express.Router();
+var User = require("../models/user");
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
@@ -84,3 +84,5 @@ router.delete("/:id", function (req, res) {
         res.redirect('/users');
     });
 });
+
+module.exports = router;
