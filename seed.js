@@ -10,7 +10,7 @@ var data = [
     {
         name: 'George Kimmel',
         email: 'georgek@hotmail.com',
-        cpf: '04331388077'
+        cpf: '52511324687'
     },
     {
         name: 'Homer Simpsons',
@@ -20,7 +20,7 @@ var data = [
 ];
 
 function seedDB(){
-    User.remove({}, function(err){
+    User.deleteMany({}, function(err){
         if(err){
             console.log(err);
         }
