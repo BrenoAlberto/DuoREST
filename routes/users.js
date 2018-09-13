@@ -59,7 +59,7 @@ router.get("/:id/edit", function (req, res) {
     User.findById(req.params.id).exec(function(err, foundUser){
         if(err || !foundUser){
             console.log(err);
-            req.flash('error', 'Desculpe mas este usuário não existe!');
+            //req.flash('error', 'Desculpe mas este usuário não existe!');
             return res.redirect('/users');
         }
         console.log(foundUser);
@@ -73,10 +73,10 @@ router.put("/:id", function (req, res) {
     var newData = { name: req.body.name, email: req.body.email, cpf: req.body.cpf };
     User.findByIdAndUpdate(req.params.id, { $set: newData }, function (err, user) {
         if (err) {
-            req.flash("error", err.message);
+            //req.flash("error", err.message);
             res.redirect("back");
         } else {
-            req.flash("success", "Atualizado com sucesso!");
+            //req.flash("success", "Atualizado com sucesso!");
             res.redirect("/users/" + user._id);
         }
     });
@@ -86,10 +86,10 @@ router.put("/:id", function (req, res) {
 router.delete("/:id", function (req, res) {
     User.findByIdAndRemove(req.params.id).exec(function (err) {
         if (err) {
-            req.flash('error', err.message);
+            //req.flash('error', err.message);
             return res.redirect('/');
         }
-        req.flash('error', 'Usuário deletado!');
+        //req.flash('error', 'Usuário deletado!');
         res.redirect('/users');
     });
 });
