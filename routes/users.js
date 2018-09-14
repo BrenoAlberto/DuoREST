@@ -1,14 +1,18 @@
-var express = require("express");
-var router = express.Router();
-var User = require("../models/user");
+var express = require("express"),
+    router = express.Router(),
+    User = require("../models/user"),
+    Adm  = require("./adm"),
+    middleware = require("../middleware"),
+    { loginRequired } = middleware;
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
+
 //INDEX - show all users
-router.get("/", function (req, res) {
+router.get("/", loginRequired, function (req, res) {
     if (req.query.search && req.xhr) {
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
         User.find({ name: regex }, function (err, allUsers) {
@@ -34,7 +38,7 @@ router.get("/", function (req, res) {
 });
 
 //CREATE - add new user to DB
-router.post("/", function (req, res) {
+router.post("/", loginRequired, function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
     var cpf = req.body.cpf;
@@ -50,12 +54,12 @@ router.post("/", function (req, res) {
 });
 
 //NEW - show form to create new user
-router.get("/new", function (req, res) {
+router.get("/new",loginRequired, function (req, res) {
     res.render("users/new");
 });
 
 // EDIT - shows edit form for a user
-router.get("/:id/edit", function (req, res) {
+router.get("/:id/edit", loginRequired, function (req, res) {
     User.findById(req.params.id).exec(function(err, foundUser){
         if(err || !foundUser){
             console.log(err);
@@ -69,7 +73,7 @@ router.get("/:id/edit", function (req, res) {
 });
 
 // PUT - updates user in the database
-router.put("/:id", function (req, res) {
+router.put("/:id", loginRequired, function (req, res) {
     var newData = { name: req.body.name, email: req.body.email, cpf: req.body.cpf };
     User.findByIdAndUpdate(req.params.id, { $set: newData }, function (err, user) {
         if (err) {
@@ -83,7 +87,7 @@ router.put("/:id", function (req, res) {
 });
 
 // DELETE - removes user from the database
-router.delete("/:id", function (req, res) {
+router.delete("/:id", loginRequired, function (req, res) {
     User.findByIdAndRemove(req.params.id).exec(function (err) {
         if (err) {
             //req.flash('error', err.message);
