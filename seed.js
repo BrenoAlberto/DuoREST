@@ -16,6 +16,36 @@ var data = [
         name: 'Homer Simpsons',
         email: 'homero@gmail.com',
         cpf: '22263474021'
+    },
+    {
+        name: 'Bob Lee',
+        email: 'boblee@gmail.com',
+        cpf: '52865518078'
+    },
+    {
+        name: 'George Kimmel',
+        email: 'georgek@hotmail.com',
+        cpf: '52511324687'
+    },
+    {
+        name: 'Homer Simpsons',
+        email: 'homero@gmail.com',
+        cpf: '22263474021'
+    },
+    {
+        name: 'Bob Lee',
+        email: 'boblee@gmail.com',
+        cpf: '52865518078'
+    },
+    {
+        name: 'George Kimmel',
+        email: 'georgek@hotmail.com',
+        cpf: '52511324687'
+    },
+    {
+        name: 'Homer Simpsons',
+        email: 'homero@gmail.com',
+        cpf: '22263474021'
     }
 ];
 

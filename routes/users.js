@@ -84,7 +84,7 @@ router.put("/:id", function (req, res) {
 
 // DELETE - removes user from the database
 router.delete("/:id", function (req, res) {
-    User.findOneAndDelete(req.params.id).exec(function (err) {
+    User.findByIdAndRemove(req.params.id).exec(function (err) {
         if (err) {
             //req.flash('error', err.message);
             return res.redirect('/');
