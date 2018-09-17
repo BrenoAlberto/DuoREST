@@ -1,4 +1,4 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt'),
     Adm = require("../models/adm");
@@ -7,7 +7,7 @@ exports.loginPage = function (req, res) {
     res.render("users/login");
 };
 
-exports.login = function (req, res, next) {
+exports.login = function (req, res) {
     Adm.findOne({ username: req.body.username })
         .exec()
         .then(adm => {
@@ -28,10 +28,9 @@ exports.login = function (req, res, next) {
                         admId: adm._id
                     },'secret',
                         {
-                            expiresIn: '1h'
+                            expiresIn: '72h'
                         }
                     );
-                    res.setHeader('Authorization',token);
                     return res.status(200).redirect('/users');
                 }
                 res.status(401).json({
@@ -54,7 +53,7 @@ exports.register = function (req, res) {
                     message: "Usuário já existe"
                 });
             } else {
-                var newAdm = new Adm(req.body);
+                const newAdm = new Adm(req.body);
                 newAdm.hash_password = bcrypt.hashSync(req.body.password, 10);
                 newAdm.save(function (err, Adm) {
                     if (err) {

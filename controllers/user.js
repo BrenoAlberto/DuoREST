@@ -1,5 +1,5 @@
-var mongoose = require('mongoose'),
-    User = require("../models/user");
+const User = require("../models/user"),
+      cpf = require("../public/scripts/script");
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
@@ -32,18 +32,31 @@ exports.showUsers = function (req, res) {
 };
 
 exports.createUser = function (req, res) {
-    var name = req.body.name;
-    var email = req.body.email;
-    var cpf = req.body.cpf;
-    var newUser = { name: name, email: email, cpf: cpf };
-    User.create(newUser, function (err, newlyCreated) {
-        if (err) {
-            console.log(err);
+    User.find({$or: [ {email: req.body.email}, {cpf: req.body.cpf}] })
+    .exec()
+    .then(user => {
+        if(user.length >=1 ){
+            return res.status(409).json({
+                message: "Usuário já existe"
+            });
         } else {
-            console.log(newlyCreated);
-            res.redirect("/users");
+
+            const newUser = { name: req.body.name, email: req.body.email, cpf: req.body.cpf };
+          //  var result = cpf.validate( newUser.cpf )
+          //  if(result){
+                User.create(newUser, function (err) {
+                    if (err) {
+                        return res.status(500).send({
+                            message: err
+                        })
+                    } else {
+                        res.status(200).redirect('/users');
+                    }
+                });
+         //   }
+            
         }
-    });
+    })
 };
 
 exports.createUserForm = function (req, res) {
@@ -54,7 +67,6 @@ exports.editUserForm = function (req, res) {
     User.findById(req.params.id).exec(function(err, foundUser){
         if(err || !foundUser){
             console.log(err);
-            //req.flash('error', 'Desculpe mas este usuário não existe!');
             return res.redirect('/users');
         }
         console.log(foundUser);
@@ -63,7 +75,7 @@ exports.editUserForm = function (req, res) {
 };
 
 exports.updateUser = function (req, res) {
-    var newData = { name: req.body.name, email: req.body.email, cpf: req.body.cpf };
+    const newData = { name: req.body.name, email: req.body.email, cpf: req.body.cpf };
     User.updateOne({ _id: req.params.id}, {$set: newData })
     .exec()
     .then(result => {

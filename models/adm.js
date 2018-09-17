@@ -1,7 +1,7 @@
-var mongoose = require("mongoose"),
+const mongoose = require("mongoose"),
     bcrypt = require('bcrypt');
 
-var AdmSchema = new mongoose.Schema({
+const AdmSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     hash_password: { type: String, required: true }
 });

@@ -1,12 +1,8 @@
-var express = require("express"),
+const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
-    flash = require("connect-flash"),
     seedDB = require("./seed"),
-    User = require("./models/user"),
-    Adm = require("./models/adm"),
-    jsonwebtoken = require("jsonwebtoken"),
     methodOverride = require("method-override");
 
 mongoose.Promise = global.Promise;
@@ -33,7 +29,7 @@ app.use((req, res, next) => {
         "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+        res.header("Access-Control-Allow-Methods", "PUT, POST, DELETE, GET");
         return res.status(200).json({});
     }
     next();

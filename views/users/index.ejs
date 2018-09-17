@@ -21,18 +21,13 @@
         <% users.forEach(function(user){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="card">
-                    <h3><%= user.name %></h3>
-                    <hr>
-                    <h4><%= user.email %></h4>
-                    <hr>
-                    <h4><%= user.cpf %></h4>
-                    <hr>
-                    <div class="row text-center">
-                        <div class="col-md-6 col-sm-6">
-                            <a class="btn btn-warning" href="/users/<%= user._id %>/edit">Editar</a>
-                        </div>
-                        <form action="/users/<%= user._id %>?_method=DELETE" method="POST" class="delete-form col-md-6 col-sm-6">
-                            <button class="btn btn-danger">Deletar</button>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= user.name %></h5>
+                        <p class="card-text"><%= user.email %></p>
+                        <p class="card-text"><%= user.cpf %></p>
+                        <a class="btn btn-warning card-link" href="/users/<%= user._id %>/edit">Editar</a>
+                        <form action="/users/<%= user._id %>?_method=DELETE" method="POST" class="delete-form">
+                            <button class="btn btn-danger card-link">Deletar</button>
                         </form>
                     </div>
                 </div>

@@ -1,6 +1,6 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: {
         type: String,
@@ -9,10 +9,10 @@ var UserSchema = new mongoose.Schema({
         match: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/
     },
     cpf: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
-        match: /^(d{3}.d{3}.d{3}-d{2})|(d{11})$/
+        // match: /^(d{3}.d{3}.d{3}-d{2})|(d{11})$/
     }
 });
 
