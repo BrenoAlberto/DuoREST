@@ -33,4 +33,4 @@ const isValidCPF = (cpf) => {
         (mergeDigits(firstDigit, secondDigit))
 }
 
-const validate = (CPF) => NOT(isRepeatingNumbersCpf(CPF)) && isValidCPF(CPF)
+exports.validate = (CPF) => NOT(isRepeatingNumbersCpf(CPF)) && isValidCPF(CPF)

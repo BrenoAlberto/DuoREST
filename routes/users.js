@@ -1,7 +1,6 @@
 const express = require("express"),
     router = express.Router(),
     userHandlers = require("../controllers/user"),
-    admHandlers = require("../controllers/adm"),
     checkAuth = require('../middleware/check-auth');
 
 router.route('')

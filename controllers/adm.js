@@ -28,9 +28,10 @@ exports.login = function (req, res) {
                         admId: adm._id
                     },'secret',
                         {
-                            expiresIn: '72h'
+                            expiresIn: '1h'
                         }
                     );
+                    res.cookie('Authorization', 'Basic ' + token);
                     return res.status(200).redirect('/users');
                 }
                 res.status(401).json({

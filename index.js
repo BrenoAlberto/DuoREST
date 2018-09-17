@@ -3,7 +3,8 @@ const express = require("express"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
     seedDB = require("./seed"),
-    methodOverride = require("method-override");
+    methodOverride = require("method-override"),
+    cookieParser = require('cookie-parser');
 
 mongoose.Promise = global.Promise;
 
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("."));
 app.use(methodOverride('_method'));
+app.use(cookieParser());
 seedDB();
 
 var userRoutes = require("./routes/users"),
