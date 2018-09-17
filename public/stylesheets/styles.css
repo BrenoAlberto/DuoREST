@@ -24,4 +24,9 @@ body {
 	display: inline-block;
 }
 
+.login-form {
+    width: 30%;
+    margin: 25px auto;
+}
+
   

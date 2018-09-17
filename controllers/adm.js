@@ -1,10 +1,9 @@
-const mongoose = require('mongoose'),
-    jwt = require('jsonwebtoken'),
+const jwt = require('jsonwebtoken'),
     bcrypt = require('bcrypt'),
     Adm = require("../models/adm");
 
 exports.loginPage = function (req, res) {
-    res.render("users/login");
+        res.render("users/login");
 };
 
 exports.login = function (req, res) {

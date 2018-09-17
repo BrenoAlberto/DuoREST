@@ -1,7 +1,6 @@
-var mongoose = require("mongoose"),
-    User = require("./models/user");
+const User = require("./models/user");
 
-var data = [
+const data = [
     {
         name: 'Bob Lee',
         email: 'boblee@gmail.com',

@@ -1,8 +1,6 @@
 const User = require("../models/user"),
       cpf = require("../public/scripts/script");
 
-
-
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
@@ -59,7 +57,6 @@ exports.createUser = function (req, res) {
                         message: 'CPF inválido'
                     })
                 }
-
             }
         })
 };
@@ -83,8 +80,7 @@ exports.updateUser = function (req, res) {
     User.find({ $or: [{ email: req.body.email }, { cpf: req.body.cpf }] })
         .exec()
         .then(user => {
-            console.log(user[0]._id)
-            if (user.length >= 1 && user[0]._id != req.body.id ) {
+            if (user.length >= 1 && user[0]._id != req.params.id) {
                 return res.status(409).json({
                     message: "Usuário já existe"
                 });
