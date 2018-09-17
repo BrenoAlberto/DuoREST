@@ -9,22 +9,6 @@ var express = require("express"),
     jsonwebtoken = require("jsonwebtoken"),
     methodOverride = require("method-override");
 
-app.use(function (req, res, next) {
-    if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-        jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPI', function (err, decode) {
-            if (err) req.adm = undefined;
-            req.adm = decode;
-            next();
-        })
-    } else {
-        req.adm = undefined;
-        next();
-    }
-})
-
-var userRoutes = require("./routes/users"),
-    loginRoutes = require("./routes/adm");
-
 mongoose.Promise = global.Promise;
 
 const databaseUri = 'mongodb://localhost/DuoREST';
@@ -39,8 +23,28 @@ app.use(express.static("."));
 app.use(methodOverride('_method'));
 seedDB();
 
+var userRoutes = require("./routes/users"),
+    loginRoutes = require("./routes/adm");
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === "OPTIONS") {
+        res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+        return res.status(200).json({});
+    }
+    next();
+});
+
 app.use("/", loginRoutes);
 app.use("/users", userRoutes);
+
+app.use(function (req, res) {
+    res.status(404).send({ url: req.originalUrl + ' não encontrado' })
+});
 
 app.listen(3000, function () {
     console.log("The Server Has Started!");
