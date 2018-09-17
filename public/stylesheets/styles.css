@@ -1,0 +1,27 @@
+h1 {
+    font-size: 4em;
+}
+  
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+  
+.container .text-muted {
+    margin: 20px 0;
+}
+    
+.card {
+    margin: 20px;
+    padding: 0;
+}
+
+.delete-form {
+	display: inline-block;
+}
+
+  
