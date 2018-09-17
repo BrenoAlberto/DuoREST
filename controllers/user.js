@@ -1,5 +1,5 @@
 const User = require("../models/user"),
-      cpf = require("../public/scripts/script");
+    cpf = require("../public/scripts/script");
 
 // Define escapeRegex function for search feature
 function escapeRegex(text) {
@@ -24,6 +24,13 @@ exports.showUsers = function (req, res) {
                 if (req.xhr) {
                     res.json(allUsers);
                 } else {
+                    if (allUsers.length >= 1) {
+                        allUsers.forEach(el => {
+                            if (el.cpf.length == 11) {
+                                el.cpf = el.cpf.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+                            }
+                        });
+                    }
                     res.render("users/index", { users: allUsers, page: 'users' });
                 }
             }
